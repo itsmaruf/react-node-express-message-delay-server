@@ -2,8 +2,7 @@
 const mongoose = require("mongoose");
 
 const flowSchema = mongoose.Schema({
-  message: String,
-  delay: Number,
+  data: Object,
 });
 
 const flowModel = mongoose.model("flow", flowSchema);

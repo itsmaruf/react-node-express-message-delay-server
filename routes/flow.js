@@ -8,10 +8,12 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", async (req, res, next) => {
-  console.log(req.body);
-  const flow = req.body;
+  // console.log(req.body);
+  const flow = req.body.newData;
   // let newflowData = new flowModel(req.body);
-  const newFlowData = new flowModel(req.body);
+  const newFlowData = new flowModel(flow);
+
+  console.log(flow);
 
   // save data into database using mongoose schema
   newFlowData.save(function (err, newFlow) {

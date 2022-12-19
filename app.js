@@ -10,6 +10,7 @@ mongoose.set("strictQuery", true);
 
 // get the url
 var dbURL = require("./config").DB_URL;
+console.log(dbURL);
 
 // connection
 mongoose.connect(dbURL);
@@ -36,8 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/flow", flowRouter);
+app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/flow", flowRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

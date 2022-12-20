@@ -34,24 +34,43 @@ router.get("/", (req, res, next) => {
       let delayAmount = 0;
       // cron.schedule("* * * * * *", function () {
 
+      // cron.schedule("* * * * * *", function () {
+      //   console.log("running cron");
       // });
-      let it = 0;
-      while (true) {
-        if (it === keys.length) {
-          break;
-        }
 
-        if (!isNaN(values[it])) {
-          const delayTime = parseInt(values[it]);
-          const index = it;
-          // console.log(delayTime * 1000);
-          setInterval(() => {
-            console.log(delayTime + " seconds");
-          }, delayTime * 1000);
+      var task = cron.schedule(
+        "* * * * * *",
+        () => {
+          keys.forEach(function (key, index) {
+            console.log(index, key, values[index]);
+          });
+          console.log("-------------");
+          // console.log(task.now());3
+        },
+        {
+          scheduled: false,
         }
+      );
 
-        it++;
-      }
+      task.start();
+
+      // });
+      // let it = 0;
+      // while (true) {
+      //   if (it === keys.length) {
+      //     break;
+      //   }
+
+      //   it++;
+      //   if (!isNaN(values[it])) {
+      //     const delayTime = parseInt(values[it]);
+      //     const index = it;
+      //     // console.log(delayTime * 1000);
+      //     setInterval(() => {
+      //       console.log(delayTime + " seconds");
+      //     }, delayTime * 1000);
+      //   }
+      // }
 
       // console.log(newObj);
       res.send(newObj);

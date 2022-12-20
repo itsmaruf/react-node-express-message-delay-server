@@ -43,9 +43,10 @@ router.get("/", (req, res, next) => {
 
         if (!isNaN(values[it])) {
           const delayTime = parseInt(values[it]);
+          const index = it;
           // console.log(delayTime * 1000);
           setInterval(() => {
-            console.log(delayTime + " seconds", values);
+            console.log(delayTime + " seconds");
           }, delayTime * 1000);
         }
 

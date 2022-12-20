@@ -19,7 +19,41 @@ router.get("/", (req, res, next) => {
     .populate("flow")
     .exec(function (err, flows) {
       if (err) return next(err);
-      res.status(200).json(flows);
+      // res.send(flows[0].flow.data);
+      var newObj = {};
+      const obj = flows[0].flow.data;
+      for (var i in obj) {
+        newObj[i] = obj[i].replaceAll('\\"', "").replaceAll('"', "");
+      }
+
+      const keys = Object.keys(newObj);
+      const values = Object.values(newObj);
+      // console.log(Object.values(newObj));
+
+      const flag = 0;
+      let delayAmount = 0;
+      // cron.schedule("* * * * * *", function () {
+
+      // });
+      let it = 0;
+      while (true) {
+        if (it === keys.length) {
+          break;
+        }
+
+        if (!isNaN(values[it])) {
+          const delayTime = parseInt(values[it]);
+          // console.log(delayTime * 1000);
+          setInterval(() => {
+            console.log(delayTime + " seconds", values);
+          }, delayTime * 1000);
+        }
+
+        it++;
+      }
+
+      // console.log(newObj);
+      res.send(newObj);
     });
 
   // cron.schedule("* * * * * *", function () {

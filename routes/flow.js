@@ -22,12 +22,14 @@ router.get("/", (req, res, next) => {
       // res.send(flows[0].flow.data);
       var newObj = {};
       const obj = flows[0].flow.data;
+      
       for (var i in obj) {
         newObj[i] = obj[i].replaceAll('\\"', "").replaceAll('"', "");
       }
 
       const keys = Object.keys(newObj);
       const values = Object.values(newObj);
+      const newArray = [...keys, ...values];
       // console.log(Object.values(newObj));
 
       const flag = 0;
@@ -38,14 +40,22 @@ router.get("/", (req, res, next) => {
       //   console.log("running cron");
       // });
 
+      let cronCnt = 0;
       var task = cron.schedule(
         "* * * * * *",
         () => {
-          keys.forEach(function (key, index) {
-            console.log(index, key, values[index]);
+          values.forEach(function (item, index) {
+            if (index === values.length - 1) {
+              task.stop();
+              return;
+            }
+            setTimeout(
+              () => {
+                console.log(index, item);
+              },
+              isNaN(parseInt) ? 1000 : parseInt(item) * 1000
+            );
           });
-          console.log("-------------");
-          // console.log(task.now());3
         },
         {
           scheduled: false,

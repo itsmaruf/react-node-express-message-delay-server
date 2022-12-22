@@ -1,0 +1,19 @@
+{
+    "userID": 1,
+    "workflow": [
+        {
+            "type": "delay",
+            "value": 5,
+            "status": false
+        },
+        {
+            "type": "message",
+            "email": "marufalaslam@gmail.com",
+            "text": "Hello",
+            "status": false
+        }
+    ],
+    "status": {
+        "default": false
+    }
+}
